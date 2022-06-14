@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect, useCallback } from 'react'
+import './App.css'
 
 function App() {
+  const [count, setCount] = useState(0)
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    // componentDidMount
+    const timer = setInterval(() => {
+      setTime(new Date())
+    }, 500)
+
+    // componentWillUnmount
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+
+  // componentDidUpdate
+  useEffect(() => {
+    if (count === 10) {
+      console.log('Десять')
+    }
+  }, [count])
+
+  const increment = useCallback(() => {
+    setCount((val) => val + 1)
+  }, [])
+
+  const decrement = useCallback(() => {
+    setCount(count - 1)
+  }, [count])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>Сейчас {time.toLocaleTimeString()}</div>
+      <div>{count}</div>
+      <button type="button" onClick={increment}>
+        +
+      </button>
+      <button type="button" onClick={decrement}>
+        -
+      </button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
