@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import AddItemForm from './components/AddItemForm'
+import TodoItem from './components/TodoItem'
 
 const defaultItems = [
   {
@@ -22,11 +23,36 @@ function App() {
     setItems([...items, newItem])
   }
 
+  const handleItemComplete = (clickedItem) => {
+    const newItems = items.map((item) => {
+      if (item.id === clickedItem.id) {
+        return {
+          ...item,
+          completed: !item.completed,
+        }
+      }
+      return item
+    })
+
+    setItems(newItems)
+  }
+
+  const handleItemDelete = (clickedItem) => {
+    const newItem = items.filter((item) => item.id !== clickedItem.id)
+
+    setItems(newItem)
+  }
+
   return (
     <div>
       <AddItemForm onSubmit={handleSubmit} />
       {items.map((item) => (
-        <div>{item.title}</div>
+        <TodoItem
+          key={item.id}
+          item={item}
+          onComplete={() => handleItemComplete(item)}
+          onDelete={() => handleItemDelete(item)}
+        />
       ))}
     </div>
   )
