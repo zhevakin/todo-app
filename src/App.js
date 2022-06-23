@@ -4,6 +4,7 @@ import Home from './routes/Home'
 import About from './routes/About'
 import Todo from './routes/Todo'
 import User from './routes/User'
+import Register from './routes/Register'
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         <ul>
           <li>
             <Link to="/">Главная страница</Link>
+          </li>
+          <li>
+            <Link to="/register">Регистрация</Link>
           </li>
           <li>
             <Link to="/about">О проекте</Link>
@@ -29,6 +33,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="todo" element={<Todo />} />
         <Route path="user/:userId" element={<User />} />
+        <Route path="register" element={<Register />} />
       </Routes>
     </div>
   )
