@@ -1,5 +1,12 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import Button from '../components/Button'
+
+const SubmitButton = styled(Button)`
+  font-size: 32px;
+  padding: 10px 20px;
+`
 
 function User() {
   const [input, setInput] = useState('')
@@ -12,19 +19,31 @@ function User() {
   }
 
   return (
-    <div>
+    <Container>
       <h1>Пользователь ID: {userId}</h1>
       <p>Введите новый ID пользователя:</p>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           value={input}
           onChange={(event) => setInput(event.target.value)}
         />
-        <button type="submit">Отправить</button>
+        <SubmitButton type="submit">Отправить</SubmitButton>
       </form>
-    </div>
+    </Container>
   )
 }
 
 export default User
+
+const Container = styled.div`
+  border: 1px solid #eee;
+  color: green;
+  padding: 10px;
+  margin: 0 20px;
+`
+
+const Input = styled.input`
+  padding: 10px;
+  color: #999;
+`

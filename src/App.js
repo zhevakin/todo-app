@@ -19,6 +19,9 @@ function App() {
           <li>
             <Link to="/todo">Список</Link>
           </li>
+          <li>
+            <Link to="/user/123">Профиль юзера</Link>
+          </li>
         </ul>
       </nav>
       <Routes>

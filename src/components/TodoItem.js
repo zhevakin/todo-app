@@ -1,15 +1,26 @@
 import PropTypes from 'prop-types'
-import './TodoItem.css'
+import styled, { css } from 'styled-components'
+
+const Item = styled.div`
+  color: #000;
+
+  ${(props) =>
+    props.completed &&
+    css`
+      color: #999;
+      text-decoration: line-through;
+    `}
+`
 
 function TodoItem({ item, onComplete, onDelete }) {
   return (
-    <div className={item.completed ? 'todo-item-completed' : 'todo-item'}>
+    <Item completed={item.completed}>
       <input type="checkbox" checked={item.completed} onChange={onComplete} />
       {item.title}
       <button type="button" onClick={onDelete}>
         x
       </button>
-    </div>
+    </Item>
   )
 }
 
