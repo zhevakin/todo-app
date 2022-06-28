@@ -1,48 +1,23 @@
-import { useState } from 'react'
 import styles from './Todo.module.css'
 import AddItemForm from '../components/AddItemForm'
 import TodoItem from '../components/TodoItem'
-
-const defaultItems = [
-  {
-    id: 0,
-    title: 'Купить хлеб',
-    completed: false,
-  },
-]
+import { useSelector, useDispatch } from 'react-redux'
+import { addItem, deleteItem, completeItem } from '../features/todo/todoSlice'
 
 function Todo() {
-  const [items, setItems] = useState(defaultItems)
-
-  console.log(styles)
+  const items = useSelector((state) => state.todo)
+  const dispatch = useDispatch()
 
   const handleSubmit = (title) => {
-    const newItem = {
-      id: items.length,
-      title,
-      completed: false,
-    }
-    setItems([...items, newItem])
+    dispatch(addItem(title))
   }
 
-  const handleItemComplete = (clickedItem) => {
-    const newItems = items.map((item) => {
-      if (item.id === clickedItem.id) {
-        return {
-          ...item,
-          completed: !item.completed,
-        }
-      }
-      return item
-    })
-
-    setItems(newItems)
+  const handleItemComplete = (item) => {
+    dispatch(completeItem(item))
   }
 
-  const handleItemDelete = (clickedItem) => {
-    const newItem = items.filter((item) => item.id !== clickedItem.id)
-
-    setItems(newItem)
+  const handleItemDelete = (item) => {
+    dispatch(deleteItem(item))
   }
 
   return (
